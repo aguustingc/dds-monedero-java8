@@ -48,4 +48,8 @@ public class Movimiento {
       return cuenta.getSaldo() - getMonto();
     }
   }
+
+  public boolean isDeposito() {
+    return esDeposito;
+  }
 }
