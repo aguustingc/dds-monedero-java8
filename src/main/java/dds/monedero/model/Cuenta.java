@@ -31,7 +31,7 @@ public class Cuenta {
   }
 
   private boolean masDeTresDepositos() {
-    return getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count() >= 3;
+    return movimientos.stream().filter(movimiento -> movimiento.isDeposito()).count() >= 3;
   }
 
   public void sacar(double cuanto) {
@@ -67,14 +67,10 @@ public class Cuenta {
   }
 
   public double getMontoExtraidoA(LocalDate fecha) {
-    return getMovimientos().stream()
+    return movimientos.stream()
         .filter(movimiento -> !movimiento.isDeposito() && movimiento.esDeLaFecha(fecha))
         .mapToDouble(Movimiento::getMonto)
         .sum();
-  }
-
-  public List<Movimiento> getMovimientos() {
-    return movimientos;
   }
 
   public double getSaldo() {
