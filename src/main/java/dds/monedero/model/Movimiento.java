@@ -29,15 +29,11 @@ public class Movimiento {
   }
 
   public boolean fueExtraido(LocalDate fecha) {
-    return isExtraccion() && esDeLaFecha(fecha);
+    return !esDeposito && esDeLaFecha(fecha);
   }
 
   public boolean esDeLaFecha(LocalDate fecha) {
     return this.fecha.equals(fecha);
-  }
-
-  public boolean isExtraccion() {
-    return !esDeposito;
   }
 
   public void agregateA(Cuenta cuenta) {
