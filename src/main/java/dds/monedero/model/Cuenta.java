@@ -24,7 +24,7 @@ public class Cuenta {
     }
 
     if (masDeTresDepositos()) {
-      throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
+      throw new MaximaCantidadDepositosException("Ya excedio los 3 depositos diarios");
     }
 
     new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
