@@ -27,7 +27,7 @@ public class Cuenta {
       throw new MaximaCantidadDepositosException("Ya excedio los 3 depositos diarios");
     }
 
-    new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
+    agregarMovimiento(LocalDate.now(), cuanto, true);
   }
 
   private boolean masDeTresDepositos() {
@@ -47,12 +47,23 @@ public class Cuenta {
       throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
           + " diarios, límite: " + limite);
     }
-    new Movimiento(LocalDate.now(), cuanto, false).agregateA(this);
+    agregarMovimiento(LocalDate.now(), cuanto, false);
+
   }
 
   public void agregarMovimiento(LocalDate fecha, double cuanto, boolean esDeposito) {
     Movimiento movimiento = new Movimiento(fecha, cuanto, esDeposito);
     movimientos.add(movimiento);
+    ajustarSaldo(cuanto, esDeposito);
+  }
+
+  private void ajustarSaldo(double cuanto, boolean esDeposito) {
+    double saldoActual = getSaldo();
+    if (esDeposito) {
+      setSaldo(saldoActual + cuanto);
+    } else {
+      setSaldo(saldoActual - cuanto);
+    }
   }
 
   public double getMontoExtraidoA(LocalDate fecha) {
